@@ -1,3 +1,4 @@
+![Three Spheres](readme-hero.png)
 # Planetary Coordination Framework
 
 > A working draft of a post-capitalist economic and governance framework, built in the open so that something coherent is lying around when the current system's failures force a reckoning.
