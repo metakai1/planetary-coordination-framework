@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PCF · Card 01 · Demand is a commons</title>
+
+<!--
+  ============================================================================
+  PLANETARY COORDINATION FRAMEWORK
+  CARD 01 — "DEMAND IS A COMMONS"
+  1080 × 1080 · square format · feed-ready
+  ============================================================================
+
+  INTENT
+  The first card serves as a system test for the visual language: verdigris on
+  near-black, Instrument Serif headlines, ivory workhorse text, one ochre
+  accent element, noise overlay, restrained composition. If this reads right,
+  the rest of the memetics system is built on this foundation.
+
+  CONCEPT
+  The line "Demand is a commons" is a compressed statement of the Hemenway
+  Falk & Tsoukalas (2026) finding that catalyzed this framework. It
+  closes the narrative loop: the framework's origin sits on the first card.
+  "Stop depleting it" functions as the imperative second beat, converting the
+  observation into instruction.
+
+  EXPORT
+  Open in Chrome. The .canvas element is exactly 1080×1080.
+  Chrome DevTools → right-click .canvas → "Capture node screenshot".
+  Or Puppeteer: page.setViewport({width:1080, height:1080}) then screenshot.
+  ============================================================================
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  /* ─────────────────────────────────────────────────────────────
+     CSS variables — the palette and scale from brand/colors.md and
+     brand/typography.md, kept in one place so iteration is cheap.
+     ───────────────────────────────────────────────────────────── */
+  :root {
+    /* Palette — warm ground, ivory/ochre atmospheric dominance, verdigris
+       reserved for signature elements. The contrast of cool signature-green
+       against warm ivory/ochre background is what makes the verdigris sing. */
+    --ground-deep:     #15110c;   /* warm near-black — aged paper in a dim room */
+    --ground-shadow:   #1f1913;
+    --verdigris:       #3ec6a8;   /* reserved for signature — emphasis, spine, glow */
+    --verdigris-deep:  #2a8a75;
+    --verdigris-glow:  #5ae0c2;
+    --ivory:           #f0ead8;   /* primary text */
+    --ivory-warm:      #ebddbc;   /* for warm atmospheric glow */
+    --ivory-dim:       #b8b2a5;
+    --gray-cool:       #8a837a;
+    --gray-dim:        #524a3f;   /* warm-tinted dim */
+    --ochre:           #d9a668;
+    --ochre-glow:      #e8b87a;
+    --line-subtle:     rgba(240, 234, 216, 0.10);
+    --line-verdigris:  rgba(62, 198, 168, 0.35);
+    --glow-verdigris:  rgba(62, 198, 168, 0.55);
+
+    /* Typography */
+    --serif:  'Instrument Serif', 'Cormorant Garamond', Georgia, serif;
+    --sans:   'Inter', -apple-system, sans-serif;
+    --mono:   'JetBrains Mono', 'IBM Plex Mono', monospace;
+  }
+
+  /* Preview page — not part of the export, just a viewing frame */
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #1a1a1a;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--sans);
+  }
+
+  /* ─────────────────────────────────────────────────────────────
+     THE CANVAS — exact 1080×1080 export target
+     ───────────────────────────────────────────────────────────── */
+  .canvas {
+    width: 1080px;
+    height: 1080px;
+    position: relative;
+    overflow: hidden;
+    background: var(--ground-deep);
+    color: var(--ivory);
+    box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+  }
+
+  /* ─── Layer 1: ground with warm atmospheric light.
+     Warm blooms are the dominant atmospheric presence — you should see them
+     breathing the background. Verdigris is used only for the signature
+     elements (spine, emphasis word glow), not for atmospheric fill. */
+  .bloom {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  /* Dominant warm-ivory bloom — upper right, clearly visible. Reads as
+     lamplight falling across the page from an unseen source. */
+  .bloom-warm-primary {
+    width: 820px;
+    height: 820px;
+    background: rgba(235, 221, 188, 0.28);
+    filter: blur(130px);
+    top: -220px;
+    right: -200px;
+  }
+  /* Ochre bloom — lower left, warm balance. */
+  .bloom-ochre {
+    width: 620px;
+    height: 620px;
+    background: rgba(217, 166, 104, 0.22);
+    filter: blur(120px);
+    bottom: -180px;
+    left: -140px;
+  }
+  /* A second ochre presence, centered lower — ties the warm field together
+     across the bottom so it doesn't feel like two separate glows. */
+  .bloom-ochre-2 {
+    width: 480px;
+    height: 340px;
+    background: rgba(217, 166, 104, 0.12);
+    filter: blur(110px);
+    bottom: -80px;
+    left: 40%;
+  }
+  /* Warm-ivory highlight upper-left — balances the dominant upper-right. */
+  .bloom-warm-accent {
+    width: 380px;
+    height: 380px;
+    background: rgba(235, 221, 188, 0.14);
+    filter: blur(100px);
+    top: 80px;
+    left: -100px;
+  }
+  /* The single tight verdigris glow, sized and placed to sit behind only
+     the emphasis word "commons" — not to colonize surrounding space. */
+  .bloom-verdigris-accent {
+    position: absolute;
+    width: 200px;
+    height: 120px;
+    border-radius: 50%;
+    background: rgba(62, 198, 168, 0.28);
+    filter: blur(65px);
+    top: 56%;
+    left: 32%;
+    pointer-events: none;
+  }
+
+  /* ─── Layer 2: fine hairline rules + the spine.
+     Civic documents use horizontal rules at specific locations — the top
+     for a running head, the bottom for the folio. A vertical verdigris
+     spine on the left edge does new work: it converts the page from
+     "quiet spread" to "broadside with a backbone." */
+  .hairline {
+    position: absolute;
+    left: 80px;
+    right: 80px;
+    height: 1px;
+    background: var(--line-subtle);
+  }
+  .hairline.top { top: 140px; }
+  .hairline.bottom { bottom: 140px; }
+
+  .spine {
+    position: absolute;
+    left: 48px;
+    top: 200px;
+    bottom: 200px;
+    width: 2px;
+    background: linear-gradient(180deg,
+      transparent 0%,
+      var(--verdigris) 20%,
+      var(--verdigris) 80%,
+      transparent 100%);
+    box-shadow: 0 0 20px var(--glow-verdigris);
+    opacity: 0.9;
+  }
+
+  /* A large numeral at the top of the spine — the card's number as a
+     statement of being-in-a-series. This is what makes it feel like
+     issue N of a deliberate run. */
+  .spine-numeral {
+    position: absolute;
+    left: 32px;
+    top: 175px;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 32px;
+    font-weight: 400;
+    color: var(--verdigris);
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+
+  /* ─── Layer 3: content structure.
+     Three horizontal bands — header metadata, headline, footer metadata.
+     The headline is visually and optically centered; the metadata bands
+     frame it as if it were a plate in an atlas. */
+  .content {
+    position: absolute;
+    inset: 0;
+    padding: 72px 80px 72px 110px;  /* extra left padding to clear the spine */
+    display: flex;
+    flex-direction: column;
+    z-index: 5;
+  }
+
+  /* ─── Header row: framework mark on the left, classification on the right.
+     The treatment borrows from scientific publication headers — running
+     title on one side, article class or folio on the other. */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+  }
+
+  .mark {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .mark-dot {
+    width: 9px;
+    height: 9px;
+    background: var(--verdigris);
+    box-shadow: 0 0 14px var(--glow-verdigris);
+    /* Slight square-ish rotation to distinguish from standard circular dots.
+       Civic, not digital. */
+    border-radius: 1px;
+    transform: rotate(45deg);
+  }
+
+  .mark-name {
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--ivory);
+  }
+
+  .classification {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gray-cool);
+  }
+
+  /* ─── Corner labels. These read as document-specification metadata —
+     edition, folio, category. They exist to make the card feel like it was
+     excerpted from a larger corpus, which is the actual truth: this is one
+     card in a system. Color is tuned to sit quietly but remain legible
+     against the warm atmospheric ground. */
+  .corner-label {
+    position: absolute;
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gray-cool);
+    z-index: 6;
+  }
+  .corner-label.tl { top: 160px; left: 80px; }
+  .corner-label.tr { top: 160px; right: 80px; text-align: right; }
+  .corner-label.bl { bottom: 160px; left: 80px; }
+  .corner-label.br { bottom: 160px; right: 80px; text-align: right; }
+
+  /* ─── Headline block. The main event.
+     Occupies the optical center (slightly above mathematical center because
+     human vision reads slightly-above-center as centered). */
+  .headline-block {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0 20px;
+    margin-top: -30px;  /* optical lift */
+  }
+
+  /* Quiet eyebrow text — the source attribution, positioned as a running
+     head above the headline. */
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--verdigris);
+    margin-bottom: 34px;
+    padding-left: 4px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .eyebrow::before {
+    content: '';
+    width: 28px;
+    height: 1px;
+    background: var(--verdigris);
+    box-shadow: 0 0 8px var(--glow-verdigris);
+  }
+
+  /* The headline itself. Instrument Serif at a size that commands the canvas.
+     No gradient — full-strength ivory across the whole word. Crisper,
+     more insistent. The serif's own weight is what gives it presence. */
+  .headline {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 152px;
+    line-height: 0.94;
+    letter-spacing: -0.025em;
+    color: var(--ivory);
+    margin: 0;
+  }
+
+  /* The single italic-verdigris emphasis word. The load-bearing concept —
+     the reframe the whole line exists to deliver. Glow is controlled now —
+     tight, not spreading, so it holds its ground against the warm field. */
+  .headline .emphasis {
+    font-style: italic;
+    color: var(--verdigris);
+    text-shadow:
+      0 0 20px rgba(62, 198, 168, 0.35),
+      0 0 50px rgba(62, 198, 168, 0.15);
+  }
+
+  /* Imperative second beat. Sans-serif so it reads as instruction, not
+     declaration — distinguished from the serif headline above. Larger
+     than before; it's a co-lead, not a footnote. */
+  .imperative {
+    font-family: var(--sans);
+    font-weight: 500;
+    font-size: 40px;
+    line-height: 1.3;
+    color: var(--ivory);
+    margin-top: 44px;
+    padding-left: 4px;
+    letter-spacing: -0.015em;
+  }
+
+  /* ─── Footer row. Attribution, URL.
+     Quiet. The metadata-as-footer treatment again. */
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 50px;
+  }
+
+  .attribution {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--ivory-dim);
+    line-height: 1.5;
+  }
+
+  .url {
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ivory);
+    letter-spacing: 0.01em;
+    text-align: right;
+  }
+  .url .arrow {
+    color: var(--verdigris);
+    margin-right: 10px;
+  }
+  .url .path {
+    color: var(--ivory-dim);
+  }
+
+  /* ─── Layer 4: grain overlay.
+     The 3.5%-opacity film grain that prevents the flat colors from reading
+     as digital slop. Mandatory per brand/colors.md. */
+  .noise {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    z-index: 10;
+    mix-blend-mode: overlay;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="canvas">
+
+  <!-- Atmospheric blooms: ivory/ochre dominant for the warm ground,
+       one small tight verdigris glow reserved behind the emphasis word.
+       The cool signature against warm field is what gives verdigris power. -->
+  <div class="bloom bloom-warm-primary"></div>
+  <div class="bloom bloom-ochre"></div>
+  <div class="bloom bloom-ochre-2"></div>
+  <div class="bloom bloom-warm-accent"></div>
+  <div class="bloom-verdigris-accent"></div>
+
+  <!-- The verdigris spine + numeral. The structural move that takes the
+       composition from "quiet spread" to "broadside with a backbone." -->
+  <div class="spine"></div>
+  <div class="spine-numeral">01</div>
+
+  <!-- Hairlines that frame the composition like a document page -->
+  <div class="hairline top"></div>
+  <div class="hairline bottom"></div>
+
+  <!-- Corner labels — the metadata that situates the card within a larger
+       system. Reads as specification document, not social media post. -->
+  <div class="corner-label tl">Observation</div>
+  <div class="corner-label tr">Edition 2026.1</div>
+  <div class="corner-label bl">Externalities · §3</div>
+  <div class="corner-label br">Domain · Commons</div>
+
+  <!-- Main content: header / headline / footer -->
+  <div class="content">
+
+    <!-- Header: framework mark on the left, classification on the right -->
+    <div class="header">
+      <div class="mark">
+        <div class="mark-dot"></div>
+        <div class="mark-name">Planetary Coordination Framework</div>
+      </div>
+      <div class="classification">Exit Capitalism</div>
+    </div>
+
+    <!-- Headline: the main event.
+         Eyebrow says where the idea comes from.
+         Headline carries the line with the italic-verdigris emphasis word.
+         Imperative delivers the second beat as instruction. -->
+    <div class="headline-block">
+      <div class="eyebrow">After Hemenway Falk &amp; Tsoukalas, 2026</div>
+      <h1 class="headline">
+        Demand is<br>
+        a <span class="emphasis">commons.</span>
+      </h1>
+      <div class="imperative">
+        Stop depleting it.
+      </div>
+    </div>
+
+    <!-- Footer: attribution and URL -->
+    <div class="footer">
+      <div class="attribution">
+        The plan is open source.
+      </div>
+      <div class="url">
+        <span class="arrow">→</span>exitcapitalism<span class="path">.link</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Grain layer, always on top -->
+  <div class="noise"></div>
+
+</div>
+
+</body>
+</html>

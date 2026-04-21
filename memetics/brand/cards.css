@@ -1,0 +1,375 @@
+/* ============================================================================
+   PLANETARY COORDINATION FRAMEWORK · MEMETICS SYSTEM
+   Shared card styles — v1
+   ============================================================================
+
+   This stylesheet contains the common visual language for all 1080×1080 cards
+   in the series. Individual cards override only what's specific to that card
+   (headline size, emphasis placement, atmospheric tuning).
+
+   STRUCTURE
+   - Palette tokens (warm ground, verdigris signature, ivory/ochre atmosphere)
+   - Typography stack (Instrument Serif / Inter / JetBrains Mono)
+   - Canvas (1080×1080, overflow hidden, the export target)
+   - Atmospheric blooms (warm dominant, tight verdigris accent)
+   - Structural elements (spine, numeral, hairlines, corner metadata)
+   - Content bands (header / headline / footer)
+   - Grain overlay
+
+   RULES FOR CONTRIBUTORS
+   1. Verdigris is reserved for signature elements. Atmosphere is warm.
+   2. One ochre element per composition, maximum.
+   3. Never pure white. Never pure black. Everything tinted.
+   4. Serif is load-bearing. Don't substitute a sans for "readability."
+   5. Corner metadata is non-negotiable — it's what gives the series gravity.
+   ============================================================================
+*/
+
+:root {
+  /* Palette — the brand system */
+  --ground-deep:     #15110c;   /* warm near-black, aged paper in dim light */
+  --ground-shadow:   #1f1913;
+  --verdigris:       #3ec6a8;   /* signature — luminous patina */
+  --verdigris-deep:  #2a8a75;
+  --verdigris-glow:  #5ae0c2;
+  --ivory:           #f0ead8;   /* primary text */
+  --ivory-warm:      #ebddbc;   /* warm atmospheric glow */
+  --ivory-dim:       #b8b2a5;
+  --gray-cool:       #8a837a;
+  --gray-dim:        #524a3f;
+  --ochre:           #d9a668;   /* warm counterpoint */
+  --ochre-glow:      #e8b87a;
+  --line-subtle:     rgba(240, 234, 216, 0.10);
+  --line-verdigris:  rgba(62, 198, 168, 0.35);
+  --glow-verdigris:  rgba(62, 198, 168, 0.55);
+
+  /* Typography stack */
+  --serif:  'Instrument Serif', 'Cormorant Garamond', Georgia, serif;
+  --sans:   'Inter', -apple-system, sans-serif;
+  --mono:   'JetBrains Mono', 'IBM Plex Mono', monospace;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #1a1a1a;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--sans);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   THE CANVAS — 1080×1080 export target
+   ───────────────────────────────────────────────────────────── */
+.canvas {
+  width: 1080px;
+  height: 1080px;
+  position: relative;
+  overflow: hidden;
+  background: var(--ground-deep);
+  color: var(--ivory);
+  box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   ATMOSPHERIC BLOOMS
+   Warm ivory/ochre dominant for atmosphere.
+   Tight verdigris accent reserved for signature placement.
+   ───────────────────────────────────────────────────────────── */
+.bloom {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.bloom-warm-primary {
+  width: 820px;
+  height: 820px;
+  background: rgba(235, 221, 188, 0.28);
+  filter: blur(130px);
+  top: -220px;
+  right: -200px;
+}
+.bloom-ochre {
+  width: 620px;
+  height: 620px;
+  background: rgba(217, 166, 104, 0.22);
+  filter: blur(120px);
+  bottom: -180px;
+  left: -140px;
+}
+.bloom-ochre-2 {
+  width: 480px;
+  height: 340px;
+  background: rgba(217, 166, 104, 0.12);
+  filter: blur(110px);
+  bottom: -80px;
+  left: 40%;
+}
+.bloom-warm-accent {
+  width: 380px;
+  height: 380px;
+  background: rgba(235, 221, 188, 0.14);
+  filter: blur(100px);
+  top: 80px;
+  left: -100px;
+}
+/* Individual cards override .bloom-verdigris-accent to position the
+   verdigris glow behind their specific emphasis word. */
+.bloom-verdigris-accent {
+  position: absolute;
+  width: 220px;
+  height: 140px;
+  border-radius: 50%;
+  background: rgba(62, 198, 168, 0.32);
+  filter: blur(70px);
+  pointer-events: none;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   STRUCTURAL ELEMENTS
+   Hairlines, spine, numeral — the series signature
+   ───────────────────────────────────────────────────────────── */
+.hairline {
+  position: absolute;
+  left: 80px;
+  right: 80px;
+  height: 1px;
+  background: var(--line-subtle);
+}
+.hairline.top { top: 140px; }
+.hairline.bottom { bottom: 140px; }
+
+.spine {
+  position: absolute;
+  left: 48px;
+  top: 200px;
+  bottom: 200px;
+  width: 2px;
+  background: linear-gradient(180deg,
+    transparent 0%,
+    var(--verdigris) 20%,
+    var(--verdigris) 80%,
+    transparent 100%);
+  box-shadow: 0 0 20px var(--glow-verdigris);
+  opacity: 0.9;
+}
+
+.spine-numeral {
+  position: absolute;
+  left: 32px;
+  top: 175px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 32px;
+  font-weight: 400;
+  color: var(--verdigris);
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   CORNER METADATA
+   Non-negotiable — gives the card its specification-document gravity
+   ───────────────────────────────────────────────────────────── */
+.corner-label {
+  position: absolute;
+  font-family: var(--mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gray-cool);
+  z-index: 6;
+}
+.corner-label.tl { top: 160px; left: 110px; }
+.corner-label.tr { top: 160px; right: 80px; text-align: right; }
+.corner-label.bl { bottom: 160px; left: 110px; }
+.corner-label.br { bottom: 160px; right: 80px; text-align: right; }
+
+/* ─────────────────────────────────────────────────────────────
+   CONTENT BANDS
+   Header (framework mark), headline-block (main event), footer (URL)
+   ───────────────────────────────────────────────────────────── */
+.content {
+  position: absolute;
+  inset: 0;
+  padding: 72px 80px 72px 110px;
+  display: flex;
+  flex-direction: column;
+  z-index: 5;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+}
+
+.mark {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.mark-dot {
+  width: 9px;
+  height: 9px;
+  background: var(--verdigris);
+  box-shadow: 0 0 14px var(--glow-verdigris);
+  border-radius: 1px;
+  transform: rotate(45deg);
+}
+
+.mark-name {
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--ivory);
+}
+
+.classification {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gray-cool);
+}
+
+.headline-block {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 0 20px;
+  margin-top: -20px;
+}
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--verdigris);
+  margin-bottom: 34px;
+  padding-left: 4px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.eyebrow::before {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: var(--verdigris);
+  box-shadow: 0 0 8px var(--glow-verdigris);
+}
+
+/* Base headline — individual cards override font-size as needed */
+.headline {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 152px;
+  line-height: 0.94;
+  letter-spacing: -0.025em;
+  color: var(--ivory);
+  margin: 0;
+}
+
+.headline .emphasis {
+  font-style: italic;
+  color: var(--verdigris);
+  text-shadow:
+    0 0 20px rgba(62, 198, 168, 0.35),
+    0 0 50px rgba(62, 198, 168, 0.15);
+}
+
+.headline .period {
+  color: var(--ochre);
+}
+
+/* Second voice — sans, for directive/imperative follow-ups */
+.second-voice {
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 1.3;
+  color: var(--ivory);
+  margin-top: 44px;
+  padding-left: 4px;
+  letter-spacing: -0.015em;
+}
+
+/* Tag line — quiet italic serif under the second voice */
+.tag-line {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 22px;
+  color: var(--ivory-dim);
+  margin-top: 14px;
+  padding-left: 4px;
+  line-height: 1.4;
+}
+
+/* Attribution variant — italic serif, used alone (no second-voice) */
+.attribution {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--ivory-dim);
+  line-height: 1.5;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  height: 50px;
+}
+
+.footer-left {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gray-cool);
+}
+
+.url {
+  font-family: var(--mono);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ivory);
+  letter-spacing: 0.01em;
+  text-align: right;
+}
+.url .arrow {
+  color: var(--verdigris);
+  margin-right: 10px;
+}
+.url .path {
+  color: var(--ivory-dim);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   GRAIN OVERLAY
+   Mandatory — the 3.5% opacity film grain that keeps flat colors
+   from reading as digital slop
+   ───────────────────────────────────────────────────────────── */
+.noise {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  z-index: 10;
+  mix-blend-mode: overlay;
+}

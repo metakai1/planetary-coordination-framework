@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PCF · Card 02 · Exit capitalism</title>
+
+<!--
+  ============================================================================
+  PLANETARY COORDINATION FRAMEWORK
+  CARD 02 — "EXIT CAPITALISM"
+  1080 × 1080 · square format · feed-ready
+  ============================================================================
+
+  ROLE IN THE SERIES
+  This is the hero. The anchor that the other cards point at. The series title
+  line. If a viewer sees only one card from this system, this should be it.
+
+  DESIGN DECISIONS FOR HERO TREATMENT (vs. Card 01)
+  - Scale: headline is ~30% larger than Card 01 — it commands the canvas
+  - No eyebrow attribution — directives cite no one, they state
+  - Emphasis on "Exit" (the verb, the action) rather than a conceptual noun
+  - "The plan is open source." becomes the full second voice (sans-serif,
+    larger) instead of just footer italic
+  - Corner metadata shifts: instead of "Observation," classification reads
+    "Directive." The other labels situate it as the series anchor.
+  - The verdigris glow is slightly more present — this is a call, not an
+    observation. The cool signal cuts through the warm field more sharply.
+  ============================================================================
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    /* Palette — matches Card 01 for series coherence */
+    --ground-deep:     #15110c;
+    --ground-shadow:   #1f1913;
+    --verdigris:       #3ec6a8;
+    --verdigris-deep:  #2a8a75;
+    --verdigris-glow:  #5ae0c2;
+    --ivory:           #f0ead8;
+    --ivory-warm:      #ebddbc;
+    --ivory-dim:       #b8b2a5;
+    --gray-cool:       #8a837a;
+    --gray-dim:        #524a3f;
+    --ochre:           #d9a668;
+    --ochre-glow:      #e8b87a;
+    --line-subtle:     rgba(240, 234, 216, 0.10);
+    --line-verdigris:  rgba(62, 198, 168, 0.35);
+    --glow-verdigris:  rgba(62, 198, 168, 0.55);
+
+    --serif:  'Instrument Serif', 'Cormorant Garamond', Georgia, serif;
+    --sans:   'Inter', -apple-system, sans-serif;
+    --mono:   'JetBrains Mono', 'IBM Plex Mono', monospace;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #1a1a1a;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--sans);
+  }
+
+  .canvas {
+    width: 1080px;
+    height: 1080px;
+    position: relative;
+    overflow: hidden;
+    background: var(--ground-deep);
+    color: var(--ivory);
+    box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+  }
+
+  /* ─── Layer 1: warm atmospheric blooms, matching Card 01 system.
+     Slightly stronger ochre presence here — the hero card carries a bit
+     more weight, more presence, more implied torchlight. */
+  .bloom {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .bloom-warm-primary {
+    width: 860px;
+    height: 860px;
+    background: rgba(235, 221, 188, 0.30);
+    filter: blur(130px);
+    top: -240px;
+    right: -220px;
+  }
+  .bloom-ochre {
+    width: 680px;
+    height: 680px;
+    background: rgba(217, 166, 104, 0.26);
+    filter: blur(120px);
+    bottom: -200px;
+    left: -160px;
+  }
+  .bloom-ochre-2 {
+    width: 520px;
+    height: 360px;
+    background: rgba(217, 166, 104, 0.14);
+    filter: blur(110px);
+    bottom: -80px;
+    left: 38%;
+  }
+  .bloom-warm-accent {
+    width: 420px;
+    height: 420px;
+    background: rgba(235, 221, 188, 0.15);
+    filter: blur(100px);
+    top: 60px;
+    left: -120px;
+  }
+  /* Verdigris glow — positioned behind "Exit" (the emphasis word).
+     Slightly more present than Card 01 because this is a hero, not an
+     observation — the cool signal cuts through more sharply. */
+  .bloom-verdigris-accent {
+    position: absolute;
+    width: 240px;
+    height: 160px;
+    border-radius: 50%;
+    background: rgba(62, 198, 168, 0.34);
+    filter: blur(70px);
+    top: 36%;
+    left: 12%;
+    pointer-events: none;
+  }
+
+  /* ─── Layer 2: hairlines + spine.
+     Same system as Card 01. The spine is what signals "this is part of
+     a deliberate series." Here the numeral is "02" to place this after
+     Card 01. (Card order in the series isn't linear priority — Card 01
+     is the entry point by citation, Card 02 is the declarative hero.) */
+  .hairline {
+    position: absolute;
+    left: 80px;
+    right: 80px;
+    height: 1px;
+    background: var(--line-subtle);
+  }
+  .hairline.top { top: 140px; }
+  .hairline.bottom { bottom: 140px; }
+
+  .spine {
+    position: absolute;
+    left: 48px;
+    top: 200px;
+    bottom: 200px;
+    width: 2px;
+    background: linear-gradient(180deg,
+      transparent 0%,
+      var(--verdigris) 20%,
+      var(--verdigris) 80%,
+      transparent 100%);
+    box-shadow: 0 0 20px var(--glow-verdigris);
+    opacity: 0.9;
+  }
+
+  .spine-numeral {
+    position: absolute;
+    left: 32px;
+    top: 175px;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 32px;
+    font-weight: 400;
+    color: var(--verdigris);
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+
+  .content {
+    position: absolute;
+    inset: 0;
+    padding: 72px 80px 72px 110px;
+    display: flex;
+    flex-direction: column;
+    z-index: 5;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 50px;
+  }
+
+  .mark {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .mark-dot {
+    width: 9px;
+    height: 9px;
+    background: var(--verdigris);
+    box-shadow: 0 0 14px var(--glow-verdigris);
+    border-radius: 1px;
+    transform: rotate(45deg);
+  }
+
+  .mark-name {
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--ivory);
+  }
+
+  .classification {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gray-cool);
+  }
+
+  .corner-label {
+    position: absolute;
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gray-cool);
+    z-index: 6;
+  }
+  .corner-label.tl { top: 160px; left: 110px; }
+  .corner-label.tr { top: 160px; right: 80px; text-align: right; }
+  .corner-label.bl { bottom: 160px; left: 110px; }
+  .corner-label.br { bottom: 160px; right: 80px; text-align: right; }
+
+  /* ─── Headline block.
+     The hero moves. No eyebrow attribution — the directive cites no one.
+     Headline is larger than Card 01 (175px vs 152px) and the emphasis is
+     on "Exit" — the verb, the action.  */
+  .headline-block {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 0 20px;
+    margin-top: -20px;
+  }
+
+  /* The headline. At 175px the two words command the canvas.
+     "Exit" is italic-verdigris — the action, the move, the aikido verb.
+     "capitalism." is serif-ivory with the closing period — the full stop,
+     the declaration that this isn't aspirational. */
+  .headline {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 175px;
+    line-height: 0.92;
+    letter-spacing: -0.028em;
+    color: var(--ivory);
+    margin: 0;
+  }
+
+  .headline .emphasis {
+    font-style: italic;
+    color: var(--verdigris);
+    text-shadow:
+      0 0 25px rgba(62, 198, 168, 0.4),
+      0 0 60px rgba(62, 198, 168, 0.18);
+  }
+
+  /* The period is called out because its size is load-bearing — a
+     sentence-case hero line with no full stop reads as aspirational;
+     the period is the difference between "a thing we should do" and
+     "a thing being stated as fact." */
+  .headline .period {
+    color: var(--ochre);  /* the single ochre text element — ties the line
+                            to the warm atmosphere, subtle accent */
+  }
+
+  /* Second voice. Larger than Card 01's imperative (48px vs 40px) because
+     here it's carrying the "what comes next" weight — the directive
+     above states the move, this below names the answer. */
+  .second-voice {
+    font-family: var(--sans);
+    font-weight: 500;
+    font-size: 48px;
+    line-height: 1.2;
+    color: var(--ivory);
+    margin-top: 60px;
+    padding-left: 4px;
+    letter-spacing: -0.02em;
+  }
+
+  /* Tag line beneath the second voice — smaller, italic serif, the quiet
+     promise. Threads the series voice (italic serif) under the declarative
+     sans. */
+  .tag-line {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 26px;
+    color: var(--ivory-dim);
+    margin-top: 16px;
+    padding-left: 4px;
+    line-height: 1.4;
+  }
+
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    height: 50px;
+  }
+
+  .footer-left {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gray-cool);
+  }
+
+  .url {
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ivory);
+    letter-spacing: 0.01em;
+    text-align: right;
+  }
+  .url .arrow {
+    color: var(--verdigris);
+    margin-right: 10px;
+  }
+  .url .path {
+    color: var(--ivory-dim);
+  }
+
+  .noise {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    z-index: 10;
+    mix-blend-mode: overlay;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="canvas">
+
+  <!-- Warm atmospheric blooms, one tight verdigris glow behind "Exit" -->
+  <div class="bloom bloom-warm-primary"></div>
+  <div class="bloom bloom-ochre"></div>
+  <div class="bloom bloom-ochre-2"></div>
+  <div class="bloom bloom-warm-accent"></div>
+  <div class="bloom-verdigris-accent"></div>
+
+  <!-- Verdigris spine + italic numeral. This is the series tell. -->
+  <div class="spine"></div>
+  <div class="spine-numeral">02</div>
+
+  <!-- Document-page hairlines -->
+  <div class="hairline top"></div>
+  <div class="hairline bottom"></div>
+
+  <!-- Corner metadata. The hero card's metadata places it as the series
+       anchor — "Directive" replaces "Observation," the section is
+       named "Series · Anchor," and the domain reads "Coordination."  -->
+  <div class="corner-label tl">Directive</div>
+  <div class="corner-label tr">Edition 2026.1</div>
+  <div class="corner-label bl">Series · Anchor</div>
+  <div class="corner-label br">Domain · Coordination</div>
+
+  <div class="content">
+
+    <!-- Header -->
+    <div class="header">
+      <div class="mark">
+        <div class="mark-dot"></div>
+        <div class="mark-name">Planetary Coordination Framework</div>
+      </div>
+      <div class="classification">Exit Capitalism</div>
+    </div>
+
+    <!-- Hero headline: "Exit capitalism." with italic emphasis on "Exit"
+         and the ochre period as the load-bearing full stop -->
+    <div class="headline-block">
+      <h1 class="headline">
+        <span class="emphasis">Exit</span><br>
+        capitalism<span class="period">.</span>
+      </h1>
+      <div class="second-voice">
+        The plan is open source.
+      </div>
+      <div class="tag-line">
+        Ideas lying around, for when the crisis comes.
+      </div>
+    </div>
+
+    <!-- Footer. On the hero, left side is series metadata rather than
+         the italic tagline (which has been promoted into the content area) -->
+    <div class="footer">
+      <div class="footer-left">
+        CC0 · Public domain
+      </div>
+      <div class="url">
+        <span class="arrow">→</span>exitcapitalism<span class="path">.link</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="noise"></div>
+
+</div>
+
+</body>
+</html>
