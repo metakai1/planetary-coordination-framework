@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PCF · X Header · Exit Capitalism</title>
+
+<!--
+  ============================================================================
+  X (TWITTER) HEADER BANNER — 1500 × 500 · 3:1 aspect
+  ============================================================================
+
+  INTENT
+  The one banner on your X profile that every visitor sees. Must do two things
+  in about two seconds of attention:
+    1. Establish gravity (this is a serious project)
+    2. Deliver the URL (this is where it lives)
+
+  The Liberty image does (1) — her weathered face is the argument.
+  The typography does (2) — "Exit capitalism." + the URL.
+
+  COMPOSITION
+  X banners have a quirk: the center ~60% is what people see on mobile, but
+  the edges get clipped on different devices. Critical content (headline, URL)
+  stays within the safe zone (middle 1200px of the 1500px width). The Liberty
+  image bleeds to the right edge; the negative-space-plus-type occupies the
+  center-left.
+
+  TECH
+  Background image is the Liberty upscale, full-bleed, positioned right-center
+  so her profile stays anchored. A subtle gradient from the right fades the
+  image brightness on the left so the type has contrast without needing a
+  heavy-handed black overlay.
+  ============================================================================
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --ground-deep:     #0a0d0f;
+    --verdigris:       #3ec6a8;
+    --verdigris-glow:  rgba(62, 198, 168, 0.55);
+    --ivory:           #f0ead8;
+    --ivory-dim:       #b8b2a5;
+    --gray-cool:       #8a837a;
+    --ochre:           #d9a668;
+
+    --serif:  'Instrument Serif', Georgia, serif;
+    --sans:   'Inter', -apple-system, sans-serif;
+    --mono:   'JetBrains Mono', 'IBM Plex Mono', monospace;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #1a1a1a;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--sans);
+  }
+
+  /* X banner canvas — 1500 × 500 */
+  .canvas {
+    width: 1500px;
+    height: 500px;
+    position: relative;
+    overflow: hidden;
+    background: var(--ground-deep);
+    color: var(--ivory);
+    box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+  }
+
+  /* The Liberty photo, bleeding full-height from the right.
+     object-position: right center keeps her face anchored; the left portion
+     of the original image (which was atmospheric gradient) is what slides
+     off the left edge and gets overlaid by the type. */
+  .liberty {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: right center;
+    z-index: 1;
+  }
+
+  /* Darkening gradient on the left. Strong at far-left edge, fading to
+     transparent around 60% across. Keeps her face untouched (she carries
+     the image) while giving the type a readable ground. */
+  .gradient-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      rgba(10, 13, 15, 0.95) 0%,
+      rgba(10, 13, 15, 0.85) 25%,
+      rgba(10, 13, 15, 0.55) 45%,
+      rgba(10, 13, 15, 0.15) 65%,
+      transparent 80%
+    );
+    z-index: 2;
+  }
+
+  /* Content layer sits on top of the gradient */
+  .content {
+    position: absolute;
+    inset: 0;
+    padding: 60px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 3;
+  }
+
+  /* Top row: framework mark */
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .mark-dot {
+    width: 10px;
+    height: 10px;
+    background: var(--verdigris);
+    box-shadow: 0 0 16px var(--verdigris-glow);
+    border-radius: 1px;
+    transform: rotate(45deg);
+  }
+
+  .mark-name {
+    font-family: var(--sans);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--ivory);
+    text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+  }
+
+  /* Middle: the headline.
+     Italic-verdigris "Exit" drives the eye; serif-ivory "capitalism." grounds.
+     The scale is sized so the whole phrase reads at mobile-thumbnail size, not
+     just desktop. */
+  .headline-block {
+    max-width: 740px;
+    margin-top: -10px;  /* visual-center adjustment */
+  }
+
+  .headline {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 116px;
+    line-height: 0.9;
+    letter-spacing: -0.025em;
+    color: var(--ivory);
+    margin: 0;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.7);
+  }
+
+  .headline .emphasis {
+    font-style: italic;
+    color: var(--verdigris);
+    text-shadow:
+      0 4px 20px rgba(0,0,0,0.7),
+      0 0 30px rgba(62, 198, 168, 0.4);
+  }
+
+  .headline .period {
+    color: var(--ochre);
+  }
+
+  .subhead {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 22px;
+    color: var(--ivory-dim);
+    margin-top: 14px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.6);
+    letter-spacing: 0.005em;
+  }
+
+  /* Bottom: URL tag. Monospace, large-ish, verdigris arrow.
+     The "the plan is open source" above it does the context work. */
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .footer-left {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gray-cool);
+    text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+  }
+
+  .url {
+    font-family: var(--mono);
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--ivory);
+    letter-spacing: 0.01em;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+  }
+  .url .arrow {
+    color: var(--verdigris);
+    margin-right: 10px;
+  }
+  .url .tld {
+    color: var(--ochre);
+  }
+
+  /* Very light grain overlay — ties the composite to the card system */
+  .noise {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    z-index: 4;
+    mix-blend-mode: overlay;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="canvas">
+
+  <img class="liberty" src="liberty-source.png" alt="Liberty at dusk">
+
+  <div class="gradient-overlay"></div>
+
+  <div class="content">
+
+    <div class="header">
+      <div class="mark-dot"></div>
+      <div class="mark-name">Planetary Coordination Framework</div>
+    </div>
+
+    <div class="headline-block">
+      <h1 class="headline">
+        <span class="emphasis">Exit</span> capitalism<span class="period">.</span>
+      </h1>
+      <div class="subhead">Ideas lying around, for when the crisis comes.</div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-left">Open source · CC0 · 2026</div>
+      <div class="url">
+        <span class="arrow">→</span>exitcapitalism<span class="tld">.link</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="noise"></div>
+
+</div>
+
+</body>
+</html>

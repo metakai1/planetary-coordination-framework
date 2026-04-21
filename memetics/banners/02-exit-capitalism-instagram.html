@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PCF · Instagram Post · Liberty</title>
+
+<!--
+  ============================================================================
+  INSTAGRAM POST — 1080 × 1080 · 1:1 square
+  ============================================================================
+
+  INTENT
+  Instagram is image-first. The viewer is already looking at the image at
+  full size when they see it in their feed; the caption carries the argument.
+  The image's job is to STOP the scroll and establish gravity. Typography
+  on the image stays minimal — just enough brand anchor and URL to make the
+  image functional if someone screenshots and shares without the caption.
+
+  COMPOSITION
+  - Liberty face crops to occupy right ~65% of the square, head tilted
+    toward the edge so the composition has directional weight
+  - Left ~35% is breathing space + vertical text column
+  - Gradient darkens the left zone subtly for type legibility
+  - Three type elements only: framework mark (top), emphasis line
+    (center-left), URL (bottom)
+  - Subtle ivory/verdigris atmospheric framing echoing the card system
+
+  INSTAGRAM QUIRKS
+  - Posts get cropped to 1:1 in feed but viewable at 4:5 in profile grid
+    preview. Key content stays away from top/bottom edges.
+  - Thumbnails on tiny screens need the URL readable. Font size for URL
+    is sized so it survives 350px thumbnail display.
+  ============================================================================
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --ground-deep:     #0a0d0f;
+    --verdigris:       #3ec6a8;
+    --verdigris-glow:  rgba(62, 198, 168, 0.55);
+    --ivory:           #f0ead8;
+    --ivory-dim:       #b8b2a5;
+    --gray-cool:       #8a837a;
+    --ochre:           #d9a668;
+
+    --serif:  'Instrument Serif', Georgia, serif;
+    --sans:   'Inter', -apple-system, sans-serif;
+    --mono:   'JetBrains Mono', 'IBM Plex Mono', monospace;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #1a1a1a;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--sans);
+  }
+
+  .canvas {
+    width: 1080px;
+    height: 1080px;
+    position: relative;
+    overflow: hidden;
+    background: var(--ground-deep);
+    color: var(--ivory);
+    box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+  }
+
+  /* Liberty image — anchored right, tall enough to show full face crop */
+  .liberty {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* object-position shifts what part of the source image is visible.
+       Right-center keeps her face prominent on the right side of the
+       square, her eye roughly at the golden ratio point. */
+    object-position: 75% center;
+    z-index: 1;
+  }
+
+  /* Gradient overlay: dark on the left where the type sits, transparent
+     on the right where she lives. Gentler than the X header — Instagram
+     viewers are looking at the image, not scrolling past, so we can trust
+     them to find the type without heavy ground. */
+  .gradient-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      rgba(10, 13, 15, 0.92) 0%,
+      rgba(10, 13, 15, 0.70) 20%,
+      rgba(10, 13, 15, 0.35) 38%,
+      rgba(10, 13, 15, 0.05) 55%,
+      transparent 70%
+    );
+    z-index: 2;
+  }
+
+  /* A subtle vignette around all edges — ties the composite together,
+     pushes attention toward center. Very light. */
+  .vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse at center,
+      transparent 50%,
+      rgba(0,0,0,0.3) 100%
+    );
+    z-index: 3;
+    pointer-events: none;
+  }
+
+  .content {
+    position: absolute;
+    inset: 0;
+    padding: 70px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 4;
+  }
+
+  /* ─── Top: framework mark. Left-aligned, quiet. */
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .mark-dot {
+    width: 10px;
+    height: 10px;
+    background: var(--verdigris);
+    box-shadow: 0 0 16px var(--verdigris-glow);
+    border-radius: 1px;
+    transform: rotate(45deg);
+  }
+
+  .mark-name {
+    font-family: var(--sans);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--ivory);
+    text-shadow: 0 2px 8px rgba(0,0,0,0.7);
+  }
+
+  /* ─── Middle: the headline. Vertical, stacked into left column.
+     Instagram mobile will see this at ~400px width, so 84px serif is
+     substantial but not cramped. Two lines, visually centered vertically
+     with a slight optical lift. */
+  .headline-block {
+    max-width: 480px;
+    margin-top: 20px;  /* optical center in the square */
+  }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--verdigris);
+    margin-bottom: 28px;
+    padding-left: 3px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+  }
+  .eyebrow::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: var(--verdigris);
+    box-shadow: 0 0 6px var(--verdigris-glow);
+  }
+
+  .headline {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 116px;
+    line-height: 0.92;
+    letter-spacing: -0.028em;
+    color: var(--ivory);
+    margin: 0;
+    text-shadow: 0 4px 24px rgba(0,0,0,0.8);
+  }
+
+  .headline .emphasis {
+    font-style: italic;
+    color: var(--verdigris);
+    text-shadow:
+      0 4px 24px rgba(0,0,0,0.8),
+      0 0 40px rgba(62, 198, 168, 0.35);
+  }
+
+  .headline .period {
+    color: var(--ochre);
+  }
+
+  .subhead {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 24px;
+    color: var(--ivory-dim);
+    margin-top: 20px;
+    padding-left: 3px;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.8);
+    letter-spacing: 0.005em;
+    line-height: 1.4;
+    max-width: 400px;
+  }
+
+  /* ─── Bottom: URL. Full-width horizontal rule feel.
+     The URL is load-bearing — on Instagram, URLs aren't clickable in posts,
+     so the visual URL must be legible enough to type or remember. */
+  .footer {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .footer-rule {
+    width: 60px;
+    height: 1px;
+    background: var(--verdigris);
+    box-shadow: 0 0 6px var(--verdigris-glow);
+    margin-bottom: 4px;
+  }
+
+  .url {
+    font-family: var(--mono);
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--ivory);
+    letter-spacing: 0.01em;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.9);
+  }
+  .url .arrow {
+    color: var(--verdigris);
+    margin-right: 10px;
+  }
+  .url .tld {
+    color: var(--ochre);
+  }
+
+  .footer-meta {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gray-cool);
+    text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+  }
+
+  /* Very light grain overlay */
+  .noise {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    z-index: 5;
+    mix-blend-mode: overlay;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="canvas">
+
+  <img class="liberty" src="liberty-source.png" alt="Liberty at dusk">
+
+  <div class="gradient-overlay"></div>
+  <div class="vignette"></div>
+
+  <div class="content">
+
+    <div class="header">
+      <div class="mark-dot"></div>
+      <div class="mark-name">Planetary Coordination Framework</div>
+    </div>
+
+    <div class="headline-block">
+      <h1 class="headline">
+        <span class="emphasis">Exit</span><br>
+        capitalism<span class="period">.</span>
+      </h1>
+      <div class="subhead">
+        Ideas lying around, for when the crisis comes.
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-rule"></div>
+      <div class="url">
+        <span class="arrow">→</span>exitcapitalism<span class="tld">.link</span>
+      </div>
+      <div class="footer-meta">Open source · CC0 · 2026</div>
+    </div>
+
+  </div>
+
+  <div class="noise"></div>
+
+</div>
+
+</body>
+</html>

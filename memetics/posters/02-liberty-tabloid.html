@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PCF · Poster 02 · Liberty · Tabloid Portrait</title>
+
+<!--
+  ============================================================================
+  PLANETARY COORDINATION FRAMEWORK
+  POSTER 02 — LIBERTY · Tabloid portrait 11" × 17"
+  ============================================================================
+
+  ROLE IN THE SERIES
+  Companion to Poster 01 (Exit Capitalism letter). Different register entirely:
+    - Poster 01: broadside, urgent directive, high-traffic bulletin board
+    - Poster 02: gallery, contemplative, frame-above-a-desk
+
+  INTENT
+  This is the poster someone KEEPS. Not posted to a pole and forgotten.
+  Hung in a study, a coffee shop, a studio. Signals taste and seriousness.
+  The image carries the whole argument; type is museum-plate supplement.
+
+  PRINT SPECIFICATIONS
+  - Dimensions: 11" × 17" (tabloid/ledger, portrait)
+  - Resolution: 300 DPI = 3300 × 5100 px final
+  - Design size: 1100 × 1700 px (1x preview)
+  - Scales down cleanly to letter if user's printer can't handle tabloid
+  - Scales up cleanly to 18×24 or 24×36 at print shop
+
+  COMPOSITION
+  Liberty face dominates the upper 75% of the canvas. A small typographic
+  block at the bottom reads as museum caption — framework name, brief
+  attribution, URL, edition. The type is dignified and small, not
+  competing with her presence. Thin verdigris rule separates image
+  and caption block the way a gallery plate separates art from label.
+
+  EXPORT
+  Render via Playwright at 3x device scale for 300 DPI output.
+  See render-posters.py in this directory.
+  ============================================================================
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --ground-deep:     #0a0d0f;
+    --verdigris:       #3ec6a8;
+    --verdigris-muted: #2e9c82;   /* slightly desaturated for print */
+    --verdigris-glow:  rgba(62, 198, 168, 0.45);
+    --ivory:           #f2ecda;
+    --ivory-dim:       #b8b2a5;
+    --gray-cool:       #8a837a;
+    --gray-dim:        #524a3f;
+    --ochre:           #d9a668;
+
+    --serif:  'Instrument Serif', Georgia, serif;
+    --sans:   'Inter', -apple-system, sans-serif;
+    --mono:   'JetBrains Mono', 'IBM Plex Mono', monospace;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #1a1a1a;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--sans);
+  }
+
+  /* Tabloid portrait at 1x design scale */
+  .canvas {
+    width: 1100px;
+    height: 1700px;
+    position: relative;
+    overflow: hidden;
+    background: var(--ground-deep);
+    color: var(--ivory);
+    box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+  }
+
+  /* ─── The Liberty image zone — upper 75% of the canvas.
+     Black ground around and beneath her creates the gallery-mat effect —
+     the image sits INSIDE a frame rather than bleeding to the edges.
+     This is the key move that converts "graphic" into "artwork." */
+  .image-zone {
+    position: absolute;
+    top: 90px;
+    left: 80px;
+    right: 80px;
+    height: 1200px;
+    overflow: hidden;
+    /* Thin verdigris border — the museum frame. Very subtle. */
+    box-shadow:
+      inset 0 0 0 1px rgba(62, 198, 168, 0.35),
+      0 0 30px rgba(62, 198, 168, 0.12);
+  }
+
+  .liberty {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Portrait crop: center her face in the frame, head slightly high */
+    object-position: 65% 30%;
+  }
+
+  /* A subtle darkening at the very bottom edge of the image zone —
+     helps the image meld into the caption area below */
+  .image-fade {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(10, 13, 15, 0.4) 100%
+    );
+  }
+
+  /* ─── Top header above the image — minimal framework mark */
+  .top-header {
+    position: absolute;
+    top: 50px;
+    left: 80px;
+    right: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 30px;
+    z-index: 5;
+  }
+
+  .mark {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .mark-dot {
+    width: 10px;
+    height: 10px;
+    background: var(--verdigris);
+    box-shadow: 0 0 12px var(--verdigris-glow);
+    border-radius: 1px;
+    transform: rotate(45deg);
+  }
+
+  .mark-name {
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--ivory);
+  }
+
+  .edition-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gray-cool);
+  }
+
+  /* ─── The caption block — below the image, museum-plate register.
+     This is where all the text lives. Small, centered, quiet. */
+  .caption {
+    position: absolute;
+    bottom: 90px;
+    left: 80px;
+    right: 80px;
+    text-align: center;
+  }
+
+  /* Liberty at Dusk — plate title, italic serif */
+  .plate-title {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 36px;
+    font-weight: 400;
+    color: var(--ivory);
+    letter-spacing: -0.015em;
+    margin-bottom: 8px;
+    line-height: 1;
+  }
+
+  /* The headline treatment — "Exit capitalism." in the series voice,
+     but small here. It's a caption, not a shout. */
+  .plate-subtitle {
+    font-family: var(--serif);
+    font-size: 22px;
+    color: var(--ivory-dim);
+    margin-bottom: 34px;
+    letter-spacing: 0.01em;
+  }
+  .plate-subtitle .emphasis {
+    color: var(--verdigris-muted);
+    font-style: italic;
+  }
+  .plate-subtitle .period {
+    color: var(--ochre);
+  }
+
+  /* Thin verdigris rule — the gallery-plate divider */
+  .plate-rule {
+    width: 60px;
+    height: 1px;
+    background: var(--verdigris);
+    box-shadow: 0 0 6px var(--verdigris-glow);
+    margin: 0 auto 28px;
+  }
+
+  /* The pitch — one line of italic serif, the quiet argument */
+  .plate-pitch {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 18px;
+    color: var(--ivory-dim);
+    line-height: 1.5;
+    max-width: 640px;
+    margin: 0 auto 32px;
+    letter-spacing: 0.005em;
+  }
+
+  /* URL in mono, centered, small but readable */
+  .plate-url {
+    font-family: var(--mono);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--ivory);
+    letter-spacing: 0.02em;
+    margin-bottom: 20px;
+  }
+  .plate-url .arrow {
+    color: var(--verdigris);
+    margin-right: 10px;
+  }
+  .plate-url .tld {
+    color: var(--ochre);
+  }
+
+  /* Bottom meta line — even smaller, gray */
+  .plate-meta {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gray-cool);
+  }
+
+  /* ─── Bottom footer edge — edition number, year, like a print edition */
+  .bottom-edge {
+    position: absolute;
+    bottom: 30px;
+    left: 80px;
+    right: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gray-dim);
+  }
+
+  .noise {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.04;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    z-index: 10;
+    mix-blend-mode: overlay;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="canvas">
+
+  <div class="top-header">
+    <div class="mark">
+      <div class="mark-dot"></div>
+      <div class="mark-name">Planetary Coordination Framework</div>
+    </div>
+    <div class="edition-tag">Poster · 02</div>
+  </div>
+
+  <div class="image-zone">
+    <img class="liberty" src="liberty-source.png" alt="Liberty at Dusk">
+    <div class="image-fade"></div>
+  </div>
+
+  <div class="caption">
+    <div class="plate-title">Liberty at Dusk</div>
+    <div class="plate-subtitle">
+      <span class="emphasis">Exit</span> capitalism<span class="period">.</span>
+    </div>
+    <div class="plate-rule"></div>
+    <div class="plate-pitch">
+      A working draft of a post-capitalist economic and governance framework, built in the open for when the crisis comes.
+    </div>
+    <div class="plate-url">
+      <span class="arrow">→</span>exitcapitalism<span class="tld">.link</span>
+    </div>
+    <div class="plate-meta">Open Source · CC0 · Public Domain</div>
+  </div>
+
+  <div class="bottom-edge">
+    <div>Edition I · 2026</div>
+    <div>11 × 17</div>
+  </div>
+
+  <div class="noise"></div>
+
+</div>
+
+</body>
+</html>

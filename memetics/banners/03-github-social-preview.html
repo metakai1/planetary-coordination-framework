@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PCF · GitHub Social Preview</title>
+
+<!--
+  ============================================================================
+  GITHUB SOCIAL PREVIEW IMAGE — 1280 × 640 · 2:1 aspect
+  ============================================================================
+
+  INTENT
+  Every time someone shares "github.com/metakai1/planetary-coordination-framework"
+  on any platform that expands link previews (X, Slack, Discord, Signal,
+  iMessage, Reddit), this image appears. It's the single most leveraged image
+  in the project — millions of potential impressions for a few hundred KB.
+
+  THE JOB
+  - Read "serious repository" in under a second
+  - Establish the framework name clearly
+  - Be compelling enough to convert a preview glance into a click
+  - Not be cluttered — preview cards on mobile are small
+
+  COMPOSITION vs. X HEADER
+  - Same Liberty image, but cropped 2:1 (wider than X's 3:1)
+  - More weight to the framework name (readers need it registered)
+  - Less URL emphasis (they already have the URL in the link above)
+  - A single-line pitch replaces the eyebrow/subhead — the reader sees
+    this once, so everything relevant has to be immediately visible
+
+  HOW TO USE
+  - Upload to the repo at Settings → Options → Social preview
+  - GitHub accepts 1280x640 PNG, under 1MB
+  - Takes effect immediately across all platforms that fetch og:image
+  ============================================================================
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --ground-deep:     #0a0d0f;
+    --verdigris:       #3ec6a8;
+    --verdigris-glow:  rgba(62, 198, 168, 0.55);
+    --ivory:           #f0ead8;
+    --ivory-dim:       #b8b2a5;
+    --gray-cool:       #8a837a;
+    --ochre:           #d9a668;
+
+    --serif:  'Instrument Serif', Georgia, serif;
+    --sans:   'Inter', -apple-system, sans-serif;
+    --mono:   'JetBrains Mono', 'IBM Plex Mono', monospace;
+  }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #1a1a1a;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--sans);
+  }
+
+  .canvas {
+    width: 1280px;
+    height: 640px;
+    position: relative;
+    overflow: hidden;
+    background: var(--ground-deep);
+    color: var(--ivory);
+    box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+  }
+
+  /* Liberty — anchored right, cropped for 2:1 aspect */
+  .liberty {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: right center;
+    z-index: 1;
+  }
+
+  .gradient-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      rgba(10, 13, 15, 0.95) 0%,
+      rgba(10, 13, 15, 0.85) 20%,
+      rgba(10, 13, 15, 0.55) 42%,
+      rgba(10, 13, 15, 0.15) 60%,
+      transparent 78%
+    );
+    z-index: 2;
+  }
+
+  .content {
+    position: absolute;
+    inset: 0;
+    padding: 60px 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 3;
+  }
+
+  /* Header: framework name prominently, not just a mark.
+     This is the one place where we DO want the full name to read,
+     because the preview is the first impression many viewers get. */
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .mark-dot {
+    width: 11px;
+    height: 11px;
+    background: var(--verdigris);
+    box-shadow: 0 0 18px var(--verdigris-glow);
+    border-radius: 1px;
+    transform: rotate(45deg);
+  }
+
+  .mark-name {
+    font-family: var(--sans);
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--ivory);
+    text-shadow: 0 2px 8px rgba(0,0,0,0.7);
+  }
+
+  .mark-spacer {
+    flex: 1;
+    height: 1px;
+    background: rgba(240, 234, 216, 0.15);
+    margin: 0 24px;
+    max-width: 120px;
+  }
+
+  .mark-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--verdigris);
+    text-shadow: 0 2px 6px rgba(0,0,0,0.7);
+  }
+
+  /* Center: headline at serious scale.
+     Smaller than X header because this is seen at smaller preview sizes
+     and needs to be balanced with the pitch line below. */
+  .headline-block {
+    max-width: 700px;
+    margin-top: -15px;
+  }
+
+  .headline {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 96px;
+    line-height: 0.92;
+    letter-spacing: -0.028em;
+    color: var(--ivory);
+    margin: 0;
+    text-shadow: 0 4px 20px rgba(0,0,0,0.8);
+  }
+
+  .headline .emphasis {
+    font-style: italic;
+    color: var(--verdigris);
+    text-shadow:
+      0 4px 20px rgba(0,0,0,0.8),
+      0 0 30px rgba(62, 198, 168, 0.4);
+  }
+
+  .headline .period {
+    color: var(--ochre);
+  }
+
+  /* The pitch: one line that makes someone want to click */
+  .pitch {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 24px;
+    color: var(--ivory-dim);
+    margin-top: 20px;
+    line-height: 1.4;
+    max-width: 620px;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+  }
+
+  /* Footer: URL + license line, more prominent than Instagram because
+     GitHub previews often get screenshotted and re-shared without the
+     repo link attached. */
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .footer-left {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gray-cool);
+    text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+  }
+
+  .url {
+    font-family: var(--mono);
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--ivory);
+    letter-spacing: 0.01em;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.9);
+  }
+  .url .arrow {
+    color: var(--verdigris);
+    margin-right: 10px;
+  }
+  .url .tld {
+    color: var(--ochre);
+  }
+
+  .noise {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    z-index: 4;
+    mix-blend-mode: overlay;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="canvas">
+
+  <img class="liberty" src="liberty-source.png" alt="Liberty at dusk">
+
+  <div class="gradient-overlay"></div>
+
+  <div class="content">
+
+    <div class="header">
+      <div class="mark-dot"></div>
+      <div class="mark-name">Planetary Coordination Framework</div>
+      <div class="mark-spacer"></div>
+      <div class="mark-tag">Open Source · 2026</div>
+    </div>
+
+    <div class="headline-block">
+      <h1 class="headline">
+        <span class="emphasis">Exit</span> capitalism<span class="period">.</span>
+      </h1>
+      <div class="pitch">
+        A working draft of a post-capitalist economic and governance framework, built in the open for when the crisis comes.
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="footer-left">CC0 · Public Domain</div>
+      <div class="url">
+        <span class="arrow">→</span>exitcapitalism<span class="tld">.link</span>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="noise"></div>
+
+</div>
+
+</body>
+</html>
